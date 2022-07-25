@@ -13,7 +13,7 @@ import numpy as np
 from datasets import load_metric
  
 
-train_dataset = load_dataset('csv', data_files='data/train.csv', split='train[:1%]')
+train_dataset = load_dataset('fourthbrain-demo/reddit-comments-demo', split='train[:1%]')
 test_dataset = load_dataset('fourthbrain-demo/reddit-comments-demo')["test"]
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
 
