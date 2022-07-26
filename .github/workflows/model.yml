@@ -37,4 +37,5 @@ jobs:
         MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
         MLFLOW_TRACKING_PROJECTNAME: ${{ secrets.MLFLOW_TRACKING_PROJECTNAME }}
       run: |
+        echo $MLFLOW_TRACKING_PROJECTNAME
         python train_model.py
