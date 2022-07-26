@@ -31,7 +31,7 @@ model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-unca
 # os.environ['MLFLOW_TRACKING_USERNAME'] = os.environ['DAGSHUB_USERNAME']
 # os.environ['MLFLOW_TRACKING_PASSWORD'] = os.environ['DAGSHUB_TOKEN']
 # os.environ['MLFLOW_TRACKING_PROJECTNAME'] = os.environ['DAGSHUB_PROJECT']
-# os.environ['MLFLOW_TRACKING_URI'] = f'https://dagshub.com/' + os.environ['MLFLOW_TRACKING_USERNAME'] + '/' + os.environ['MLFLOW_TRACKING_PROJECTNAME'] + '.mlflow'
+os.environ['MLFLOW_TRACKING_URI'] = f'https://dagshub.com/' + os.environ['MLFLOW_TRACKING_USERNAME'] + '/' + os.environ['MLFLOW_TRACKING_PROJECTNAME'] + '.mlflow'
 
 
 def compute_metrics(eval_pred):
