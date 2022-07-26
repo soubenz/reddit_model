@@ -40,3 +40,23 @@ jobs:
       run: |
         echo $MLFLOW_TRACKING_PROJECTNAME
         python train_model.py
+
+    - name: Serialize model
+      env:
+        MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+        MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+        MLFLOW_TRACKING_PROJECTNAME: ${{ secrets.MLFLOW_TRACKING_PROJECTNAME }}
+      run: |
+        echo $MLFLOW_TRACKING_PROJECTNAME
+        python train_model.py
+    
+
+
+    - uses: shallwefootball/s3-upload-action@master
+      name: Upload S3
+      id: S3
+      with:
+        aws_key_id: ${{ secrets.AWS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+        aws_bucket: ${{ secrets.AWS_BUCKET }}
+        source_dir: 'static'
