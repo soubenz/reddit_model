@@ -3,6 +3,8 @@ import torch
 import torch
 from transformers import AutoModel, AutoTokenizer
 from transformers import AutoModelForSequenceClassification
+
+
 def get_model(model):
   """Loads model from Hugginface model hub"""
   try:
@@ -19,8 +21,8 @@ def get_tokenizer(tokenizer):
   except Exception as e:
     raise(e)
 
-model=get_model('bert_model_reddit_tsla_tracked_actions')
-tokenizer=get_tokenizer('bert_model_reddit_tsla_tracked_actions')
+model=get_model('demo')
+tokenizer=get_tokenizer('demo')
 
 
 
@@ -39,4 +41,6 @@ traced.save('model.pt')
 
 import boto3
 s3 = boto3.resource('s3')
-s3.meta.client.upload_file('model.pt', 'triton-repository', 'models/reddit/model.pt')
+model_path =  'models/demo/model.pt'
+s3.meta.client.upload_file('model.pt', 'triton-repository', model_path)
+print(f"Model saved to {model_path}")

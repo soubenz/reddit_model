@@ -45,7 +45,7 @@ def compute_metrics(eval_pred):
 
 tokenized_train = train_dataset.map(preprocess_function, batched=True)
 tokenized_test = test_dataset.map(preprocess_function, batched=True)
-repo_name = "bert_model_reddit_tsla_tracked_actions"
+repo_name = "demo"
  
 training_args = TrainingArguments(
    output_dir=repo_name,
