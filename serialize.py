@@ -36,3 +36,7 @@ class PyToScript(torch.nn.
 pt_model=PyToScript(model).eval()
 traced=torch.jit.trace(pt_model,inputs)
 traced.save('model.pt')
+
+import boto3
+s3 = boto3.resource('s3')
+s3.meta.client.upload_file('model.pt', 'triton-repository/models', 'model.pt')
