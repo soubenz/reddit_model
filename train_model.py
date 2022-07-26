@@ -55,7 +55,7 @@ training_args = TrainingArguments(
    num_train_epochs=2,
    weight_decay=0.01,
    save_strategy="epoch",
-   push_to_hub=True,
+   push_to_hub=False,
 )
  
 trainer = Trainer(
