@@ -38,16 +38,14 @@ jobs:
         MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
         MLFLOW_TRACKING_PROJECTNAME: ${{ secrets.MLFLOW_TRACKING_PROJECTNAME }}
       run: |
-        echo $MLFLOW_TRACKING_PROJECTNAME
         python train_model.py
 
-    - name: Serialize model
+    - name: Serialize model and push to S3
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_DEFAULT_REGION: us-west-1
 
       run: |
-        echo $MLFLOW_TRACKING_PROJECTNAME
         python serialize.py
     

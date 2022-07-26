@@ -39,4 +39,4 @@ traced.save('model.pt')
 
 import boto3
 s3 = boto3.resource('s3')
-s3.meta.client.upload_file('model.pt', 'triton-repository', '/models/model.pt')
+s3.meta.client.upload_file('model.pt', 'triton-repository', 'models/reddit/model.pt')
