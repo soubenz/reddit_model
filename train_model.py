@@ -12,7 +12,7 @@ import mlflow
 import numpy as np
 from datasets import load_metric
  
-
+import torch
 train_dataset = load_dataset('fourthbrain-demo/reddit-comments-demo', split='train[:1%]')
 test_dataset = load_dataset('fourthbrain-demo/reddit-comments-demo')["test"]
 tokenizer = AutoTokenizer.from_pretrained("distilbert-base-uncased")
@@ -31,7 +31,7 @@ model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-unca
 # os.environ['MLFLOW_TRACKING_USERNAME'] = os.environ['DAGSHUB_USERNAME']
 # os.environ['MLFLOW_TRACKING_PASSWORD'] = os.environ['DAGSHUB_TOKEN']
 # os.environ['MLFLOW_TRACKING_PROJECTNAME'] = os.environ['DAGSHUB_PROJECT']
-os.environ['MLFLOW_TRACKING_URI'] = f'https://dagshub.com/' + os.environ['MLFLOW_TRACKING_USERNAME'] + '/' + os.environ['MLFLOW_TRACKING_PROJECTNAME'] + '.mlflow'
+# os.environ['MLFLOW_TRACKING_URI'] = f'https://dagshub.com/' + os.environ['MLFLOW_TRACKING_USERNAME'] + '/' + os.environ['MLFLOW_TRACKING_PROJECTNAME'] + '.mlflow'
 
 
 def compute_metrics(eval_pred):
@@ -45,7 +45,7 @@ def compute_metrics(eval_pred):
 
 tokenized_train = train_dataset.map(preprocess_function, batched=True)
 tokenized_test = test_dataset.map(preprocess_function, batched=True)
-repo_name = "bert_model_reddit_tsla_tracked"
+repo_name = "bert_model_reddit_tsla_tracked_actions"
  
 training_args = TrainingArguments(
    output_dir=repo_name,
@@ -55,7 +55,9 @@ training_args = TrainingArguments(
    num_train_epochs=2,
    weight_decay=0.01,
    save_strategy="epoch",
-   push_to_hub=False,
+   push_to_hub=True,
+   hub_token="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"
+   
 )
  
 trainer = Trainer(
@@ -66,8 +68,9 @@ trainer = Trainer(
    tokenizer=tokenizer,
    data_collator=data_collator,
    compute_metrics=compute_metrics,
-   callbacks=[MLflowCallback()]
+   callbacks=[MLflowCallback()],
 )
 
-
 trainer.train()
+trainer.push_to_hub()
+# trainer.save_model("bert")
