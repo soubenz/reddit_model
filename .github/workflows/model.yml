@@ -25,12 +25,16 @@ jobs:
       with:
         python-version: "3.10"
     - name: Install dependencies
+
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
 
-    - name: Test with pytest
+    - name: Train model
+      env:
+        MLFLOW_TRACKING_PASSWORD: ${{ secrets.MLFLOW_TRACKING_PASSWORD }}
+        MLFLOW_TRACKING_USERNAME: ${{ secrets.MLFLOW_TRACKING_USERNAME }}
+        MLFLOW_TRACKING_PROJECTNAME: ${{ secrets.MLFLOW_TRACKING_PROJECTNAME }}
       run: |
         python train_model.py
